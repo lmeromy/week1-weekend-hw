@@ -85,11 +85,13 @@ end
 
 def sell_pet_to_customer(pet_shop, pet, customer)
 
-  if customer_can_afford_pet(customer, pet) == true
-    add_pet_to_customer(customer, pet)
-    pets_sold(pet_shop)
-    customer_cash(customer)
-    total_cash(pet_shop)
+  if pet != nil  # this is important for the next test to work
+    if customer_can_afford_pet(customer, pet) == true
+      add_pet_to_customer(customer, pet)
+      remove_customer_cash(customer, pet[:price])
+      pet_shop[:admin][:pets_sold]+=1
+      add_or_remove_cash(pet_shop, pet[:price])
+    end
   end
 
 end
