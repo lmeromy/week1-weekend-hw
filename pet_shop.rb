@@ -24,14 +24,15 @@ def stock_count(pet_shop)
 end
 
 def pets_by_breed(pet_shop, breed)
-  breed_count = []
-  pet_array = pet_shop[:pets]
+  breed_array = []
+  pet_array = pet_shop[:pets] # I could have done
+  # for pet in pet_shop[:pets] instead of creating another array
   for pet in pet_array
     if pet[:breed] == breed
-      breed_count.push(breed)  # or << shovel operator
+      breed_array.push(breed)  # or << shovel operator
     end
   end
-  return breed_count
+  return breed_array
 end
 
 
@@ -62,8 +63,8 @@ def customer_cash(customer)
 end
 
 def remove_customer_cash(customer, amount)
-  answer = customer[:cash] -= amount
-  return answer
+  customer[:cash] -= amount
+
 end
 
 
@@ -76,11 +77,8 @@ def add_pet_to_customer(customer, new_pet)
 end
 
 def customer_can_afford_pet(customer, new_pet)
-  if customer[:cash] >= new_pet[:price]
-    return true
-  else
-    return false
-  end
+  customer[:cash] >= new_pet[:price]
+  # this is a boolean statement, so do NOT need if statement!
 end
 
 def sell_pet_to_customer(pet_shop, pet, customer)
@@ -89,6 +87,7 @@ def sell_pet_to_customer(pet_shop, pet, customer)
     if customer_can_afford_pet(customer, pet) == true
       add_pet_to_customer(customer, pet)
       remove_customer_cash(customer, pet[:price])
+      # should have used the pets_sold function I already wrote! 
       pet_shop[:admin][:pets_sold]+=1
       add_or_remove_cash(pet_shop, pet[:price])
     end
